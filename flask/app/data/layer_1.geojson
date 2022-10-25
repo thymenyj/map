@@ -1,0 +1,27 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "scalerank": 8,
+                "type": "mid",
+                "name": "Shahid Ashrafi Esfahani",
+                "abbrev": "KSH",
+                "location": "runway",
+                "gps_code": "OICC",
+                "iata_code": "KSH",
+                "wikipedia": "http://en.wikipedia.org/wiki/Shahid_Ashrafi_Esfahani_Airport",
+                "natlscale": 10,
+                "featureclass": "Airport"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    5,
+                    52
+                ]
+            }
+        }
+    ]
+}

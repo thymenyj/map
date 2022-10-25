@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <!-- deck.gl standalone bundle -->
+    <script src="https://unpkg.com/deck.gl@^8.8.0/dist.min.js"></script>
+
+    <!-- Mapbox dependencies -->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+
+    <style type="text/css">
+      body {margin: 0; padding: 0;}
+      #container {width: 100vw; height: 90vh;}
+    </style>
+
+  </head>
+
+  <body>
+    {{layer_1}}
+    <div id="container"></div>
+
+  </body>
+
+  <script type="text/javascript">
+
+    // source: Natural Earth http://www.naturalearthdata.com/ via geojson.xyz
+    const LAYER_1 = {"type": "FeatureCollection", 
+    "features": [
+      {"type": "Feature", 
+        "properties": {"scalerank": 8, "type": "mid", "name": "Shahid Ashrafi Esfahani", "abbrev": "KSH", "location": "runway", "gps_code": "OICC", "iata_code": "KSH", "wikipedia": "http://en.wikipedia.org/wiki/Shahid_Ashrafi_Esfahani_Airport", "natlscale": 10, "featureclass": "Airport"},
+        "geometry": {
+          "type": "Point", 
+          "coordinates": [5, 52]
+        }
+      }
+    ]};
+    const AIR_PORTS =
+  'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_10m_airports.geojson';
+        
+
+
+    const deckgl = new deck.DeckGL({
+        container: 'container',
+        // Set your Mapbox access token here
+        mapboxApiAccessToken: 'pk.eyJ1IjoidGh5bWVueWoiLCJhIjoiY2w5aGYybmRxMWExajN0bXlpY202bzVnaSJ9.RLVbp5VGydDZB-BYH6ho-Q',
+
+        initialViewState: {
+            latitude: 51.47,
+            longitude: 0.45,
+            zoom: 4,
+            bearing: 0,
+            pitch: 0,
+        },
+        controller: true,
+
+        layers: [
+            new deck.GeoJsonLayer({
+                id: 'airports',
+                data: LAYER_1,
+                // Styles
+                filled: true,
+                pointRadiusMinPixels: 2,
+                pointRadiusScale: 2000,
+                getPointRadius: f => (11 - f.properties.scalerank),
+                getFillColor: [200, 0, 80, 180],
+                // Interactive props
+                pickable: true,
+                autoHighlight: true,
+                onClick: info => info.object && alert(`${info.object.properties.name} (${info.object.properties.abbrev})`)
+            })
+        ]
+    });
+  </script>
+</html>
